@@ -1,10 +1,12 @@
+import pytest
+
 from main import BooksCollector
 
 class TestBooksCollector:
 
     def test_books_genre_true(books_collector):
         books_collector.books_genre = {}
-        assert books_collector.book_genre == {}
+        assert books_collector.books_genre == {}
  
     def test_favorites_true(books_collector):
         books_collector.favorites = []
@@ -18,15 +20,15 @@ class TestBooksCollector:
         books_collector.genre_age_rating = ['Ужасы', 'Детективы']
         assert books_collector.genre_age_rating == ['Ужасы', 'Детективы']
     
-    def test_add_new_book_tittle_length_pozitive(books_collector):  # проверяем количество символов в названии книги
+    def test_add_new_book_title_length_pozitive(books_collector):  # проверяем количество символов в названии книги
         valid_name = "Евгений Онегин"
         books_collector.add_new_book(valid_name)
-        assert valid_name in books_collector.get_books_genre
+        assert valid_name in books_collector.get_books_genre()
 
     @pytest.mark.parametrize('name', ['Ф', 'Евгений ОнегинЕвгений ОнегинЕвгений ОнегинЕвгений ОнегинЕвгений Онегин'])
-    def test_add_new_book_tittle_length_negative(books_collector, name):  # проверяем количество символов в названии книги
+    def test_add_new_book_title_length_negative(books_collector, name):  # проверяем количество символов в названии книги
         books_collector.add_new_book(name)
-        assert name not in books_collector.get_books_genre
+        assert name not in books_collector.get_books_genre()
  
     def test_add_new_book_name(books_collector):
         book_name = "Война и мир"
@@ -73,14 +75,14 @@ class TestBooksCollector:
         books_collector.genre = ['Ужасы', 'Мультфильмы']
         books_collector.genre_age_rating = ['Ужасы']
         result = books_collector.get_books_for_children()
-        expected_result = ['Книга 1', 'Книга 2']
+        expected_result = ['Книга 3']
         assert result == expected_result
  
     @pytest.mark.parametrize('book_name', ['Книга 1', 'Книга 2', 'Книга 3'])
     def test_add_book_in_favorites(books_collector, book_name):
         books_collector.add_new_book(book_name)
         books_collector.add_book_in_favorites(book_name)
-        assert book_name in books_collector.favorites()
+        assert book_name in books_collector.favorites
  
     @pytest.mark.parametrize('book_name', ['Книга 1', 'Книга 2', 'Книга 3'])
     def test_delete_book_from_favorites(books_collector, book_name):
@@ -95,4 +97,4 @@ class TestBooksCollector:
             books_collector.add_new_book(book)
             books_collector.add_book_in_favorites(book)
         for book in book_name:
-            assert book in books_collector.favorites()
+            assert book in books_collector.favorites
