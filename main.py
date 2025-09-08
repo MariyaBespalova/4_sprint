@@ -14,7 +14,7 @@ class BooksCollector:
     # устанавливаем книге жанр
     def set_book_genre(self, name, genre):
         if name in self.books_genre and genre in self.genre:
-            self.books_genre[name] = genre
+            self.book_genre[name] = genre
 
     # получаем жанр книги по её имени
     def get_book_genre(self, name):
